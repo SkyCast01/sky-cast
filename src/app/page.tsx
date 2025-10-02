@@ -1,7 +1,10 @@
 import DetailsItem from "@/components/details-item";
 import SunComponent from "@/components/sun";
+import WeatherForecast from "@/components/weather-forecast";
 import {
   CircleQuestionMark,
+  Cloud,
+  CloudRain,
   Eye,
   Leaf,
   Sun,
@@ -12,7 +15,7 @@ import {
 
 export default function Home() {
   return (
-    <section className="flex flex-col lg:flex-row gap-10 items-start">
+    <section className="flex flex-col lg:flex-row gap-10">
       <div className="md:basis-2/3 flex flex-col gap-8">
         {/* weather part */}
         <div className="p-10 w-full flex flex-col md:flex-row items-center justify-around gap-5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl">
@@ -21,21 +24,21 @@ export default function Home() {
               Today&apos;s weather
             </h3>
             <div className="flex flex-col items-center mt-8">
-              <div className="flex items-center gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-6">
                 <Sun size={130} className="text-yellow-400" />
-                <span className="text-7xl font-bold text-zinc-800 dark:text-zinc-100">
+                <span className="text-6xl sm:text-7xl font-bold text-zinc-800 dark:text-zinc-100">
                   72°F
                 </span>
               </div>
-              <div className="text-md mt-4 text-zinc-600 dark:text-zinc-400">
+              <div className="text-md text-center mt-4 text-zinc-600 dark:text-zinc-400">
                 Sunny with a light breeze. Highs around 75°F.
               </div>
             </div>
           </div>
           <div className="mt-8 rounded-xl bg-blue-400/20 p-6 flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              <CircleQuestionMark size={40} className="text-blue-400" />
-              <h4 className="font-bold text-xl text-zinc-800 dark:text-zinc-200">
+              <CircleQuestionMark size={30} className="text-blue-400" />
+              <h4 className="font-bold text-lg sm:text-xl text-zinc-800 dark:text-zinc-200">
                 Recommendation
               </h4>
             </div>
@@ -49,10 +52,10 @@ export default function Home() {
         </div>
         {/* forecast part */}
         <div className="p-10 w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl">
-          <h3 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">
+          <h3 className="text-2xl mb-5 font-semibold text-zinc-800 dark:text-zinc-100">
             7-Day ForeCast
           </h3>
-          <div></div>
+          <WeatherForecast />
         </div>
       </div>
       {/* left section */}
