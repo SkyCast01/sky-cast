@@ -30,7 +30,8 @@ export default async function Home() {
 
   console.log("weather data:", data);
 
-  let { humidity, temperature, weather, wind_speed } = data.Data;
+  let { humidity, temperature, wind_speed } = data.Data;
+  const { weather } = data.Data;
 
   temperature = Math.round(temperature);
   humidity = Math.round(humidity);
