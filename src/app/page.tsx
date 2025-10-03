@@ -13,7 +13,7 @@ import {
 export default async function Home() {
   const dateNow = Date.now();
 
-  const date = new Date(dateNow).toISOString().split("T")[0];
+  const date = new Date(dateNow).toISOString().split(".")[0];
 
   const data = await fetch("https://nasa.runasp.net/api/Weather/predict", {
     method: "POST",
