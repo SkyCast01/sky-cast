@@ -4,8 +4,6 @@ import WeatherForecast from "@/components/weather-forecast";
 import {
   CircleQuestionMark,
   Droplet,
-  Eye,
-  Leaf,
   Sun,
   Sunrise,
   Sunset,
@@ -28,8 +26,6 @@ export default async function Home() {
     }),
   }).then((res) => res.json());
 
-  console.log("weather data:", data);
-
   let { humidity, temperature, wind_speed } = data.Data;
   const { weather } = data.Data;
 
@@ -39,7 +35,7 @@ export default async function Home() {
 
   return (
     <section className="flex flex-col lg:flex-row gap-10">
-      <div className="md:basis-2/3 flex flex-col gap-8">
+      <div className="basis-2/3 flex flex-col gap-8">
         {/* weather part */}
         <div className="p-10 w-full flex flex-col md:flex-row items-center justify-around gap-5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl">
           <div>
@@ -74,7 +70,7 @@ export default async function Home() {
           </div>
         </div>
         {/* forecast part */}
-        <div className="p-10 w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl">
+        <div className="p-10 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl overflow-x-scroll">
           <h3 className="text-2xl mb-5 font-semibold text-zinc-800 dark:text-zinc-100">
             7-Day ForeCast
           </h3>
@@ -82,23 +78,7 @@ export default async function Home() {
         </div>
       </div>
       {/* left section */}
-      <div className="md:basis-1/3 w-full flex flex-col gap-6">
-        {/* air quality */}
-        <div className="p-6 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-lg">
-          <h3 className="text-xl font-bold dark:text-zinc-100 text-zinc-800 mb-4">
-            Air Quality
-          </h3>
-          <div className="flex items-center justify-center gap-4 bg-green-500/10 text-green-700 dark:text-green-300 p-4 rounded-lg">
-            <Leaf size={40} />
-            <div>
-              <p className="font-bold text-2xl">Good</p>
-              <p className="text-sm">AQI: 35</p>
-            </div>
-          </div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-2 text-center">
-            Live Air Quality Index
-          </p>
-        </div>
+      <div className="basis-1/3 w-full flex flex-col gap-6">
         {/* details section */}
         <div className="p-6 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-lg">
           <h3 className="text-xl font-bold dark:text-zinc-100 text-zinc-800 mb-4  ">
@@ -108,21 +88,6 @@ export default async function Home() {
             icon={<Wind className="text-blue-500" />}
             name="Wind"
             value={wind_speed + " m/s"}
-          />
-          <DetailsItem
-            icon={<Sun className="text-blue-500" />}
-            name="UV Index"
-            value="3 (Moderate)"
-          />
-          <DetailsItem
-            icon={<Leaf className="text-blue-500" />}
-            name="Pollen Count"
-            value="Low"
-          />
-          <DetailsItem
-            icon={<Eye className="text-blue-500" />}
-            name="Visibility"
-            value="10 km"
           />
           <DetailsItem
             icon={<Droplet className="text-blue-500" />}
