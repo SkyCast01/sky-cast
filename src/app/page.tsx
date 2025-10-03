@@ -3,8 +3,7 @@ import SunComponent from "@/components/sun";
 import WeatherForecast from "@/components/weather-forecast";
 import {
   CircleQuestionMark,
-  Cloud,
-  CloudRain,
+  Droplet,
   Eye,
   Leaf,
   Sun,
@@ -13,7 +12,30 @@ import {
   Wind,
 } from "lucide-react";
 
-export default function Home() {
+export default async function Home() {
+  const dateNow = Date.now();
+
+  const date = new Date(dateNow).toISOString().split("T")[0];
+
+  const data = await fetch("https://nasa.runasp.net/api/Weather/predict", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      city: "Cairo",
+      datetime: date,
+    }),
+  }).then((res) => res.json());
+
+  console.log("weather data:", data);
+
+  let { humidity, temperature, weather, wind_speed } = data.Data;
+
+  temperature = Math.round(temperature);
+  humidity = Math.round(humidity);
+  wind_speed = Math.round(wind_speed);
+
   return (
     <section className="flex flex-col lg:flex-row gap-10">
       <div className="md:basis-2/3 flex flex-col gap-8">
@@ -27,11 +49,11 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center gap-6">
                 <Sun size={130} className="text-yellow-400" />
                 <span className="text-6xl sm:text-7xl font-bold text-zinc-800 dark:text-zinc-100">
-                  72°F
+                  {temperature}°C
                 </span>
               </div>
               <div className="text-md text-center mt-4 text-zinc-600 dark:text-zinc-400">
-                Sunny with a light breeze. Highs around 75°F.
+                {weather}. Highs around {temperature}°C.
               </div>
             </div>
           </div>
@@ -84,7 +106,7 @@ export default function Home() {
           <DetailsItem
             icon={<Wind className="text-blue-500" />}
             name="Wind"
-            value="5 mph NW"
+            value={wind_speed + " m/s"}
           />
           <DetailsItem
             icon={<Sun className="text-blue-500" />}
@@ -100,6 +122,11 @@ export default function Home() {
             icon={<Eye className="text-blue-500" />}
             name="Visibility"
             value="10 km"
+          />
+          <DetailsItem
+            icon={<Droplet className="text-blue-500" />}
+            name="humidity"
+            value={humidity + " %"}
           />
         </div>
         {/* sunrise & sunset */}
