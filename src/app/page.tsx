@@ -11,9 +11,21 @@ import {
 } from "lucide-react";
 
 export default async function Home() {
-  const dateNow = Date.now();
+  const date = new Date();
+  const formatted =
+    date.getFullYear() +
+    "-" +
+    String(date.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(date.getDate()).padStart(2, "0") +
+    "T" +
+    String(date.getHours()).padStart(2, "0") +
+    ":" +
+    String(date.getMinutes()).padStart(2, "0") +
+    ":" +
+    String(date.getSeconds()).padStart(2, "0");
 
-  const date = new Date(dateNow).toISOString().split(".")[0];
+  console.log(formatted);
 
   const data = await fetch("https://nasa.runasp.net/api/Weather/predict", {
     method: "POST",
@@ -22,7 +34,7 @@ export default async function Home() {
     },
     body: JSON.stringify({
       city: "Cairo",
-      datetime: date,
+      datetime: formatted,
     }),
   }).then((res) => res.json());
 
@@ -70,7 +82,7 @@ export default async function Home() {
           </div>
         </div>
         {/* forecast part */}
-        <div className="p-10 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl overflow-x-scroll">
+        <div className="p-10 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg rounded-xl ">
           <h3 className="text-2xl mb-5 font-semibold text-zinc-800 dark:text-zinc-100">
             7-Day ForeCast
           </h3>
